@@ -2,6 +2,32 @@
 
 angular.module('app', ['pasvaz.bindonce', 'ui.router', 'ngMessages']);
 
+angular.module('app').directive('highlight', function () {
+    return {
+        restrict: 'A',
+        link: function link(scope, el, _ref) {
+            var word = _ref.highlight;
+
+            if (String(word) !== '') {
+                switch (word.toLowerCase()[0]) {
+                    case 'a':
+                        {
+                            el.addClass('highlight_red');
+                            break;
+                        }
+                    case 'b':
+                        {
+                            el.addClass('highlight_blue');
+                            break;
+                        }
+                    default:
+                        return;
+                };
+            }
+        }
+    };
+});
+
 angular.module('app').factory('InputErrorsService', function () {
     return {
         shouldShowErrors: function shouldShowErrors(input, isFormSubmitted) {
@@ -28,13 +54,22 @@ function TodosService($http, $q) {
         return $q.resolve(todos);
     }
 
+    function generateTodoId(max, min) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
     function addTodo(newTodo) {
+        var todo = Object.assign(newTodo, {
+            creationDate: new Date(),
+            _id: String(generateTodoId(0, 10000000))
+        });
+
         if (!todos) {
             getTodos.then(function () {
-                return todos.unshift(newTodo);
+                return todos.unshift(todo);
             });
         } else {
-            todos.unshift(newTodo);
+            todos.unshift(todo);
         }
     }
 
@@ -48,7 +83,7 @@ function TodosService($http, $q) {
 
     function updateTodo(updatedTodo) {
         var todoIndex = todos.findIndex(function (todo) {
-            return todo._id === updatedTodo;
+            return todo._id === updatedTodo._id;
         });
 
         todos.splice(todoIndex, 1, updatedTodo);
@@ -64,31 +99,13 @@ function TodosService($http, $q) {
 
 angular.module('app').factory('TodosService', ['$http', '$q', TodosService]);
 
-angular.module('app').directive('highlight', function () {
-    return {
-        restrict: 'A',
-        link: function link(scope, el, _ref) {
-            var word = _ref.highlight;
-
-            if (String(word) !== '') {
-                switch (word.toLowerCase()[0]) {
-                    case 'a':
-                        {
-                            el.addClass('highlight_red');
-                            break;
-                        }
-                    case 'b':
-                        {
-                            el.addClass('highlight_blue');
-                            break;
-                        }
-                    default:
-                        return;
-                };
-            }
-        }
-    };
-});
+angular.module('app').config(['$stateProvider', function ($stateProvider) {
+    $stateProvider.state('addTodo', {
+        url: '/add-todo',
+        templateUrl: './pages/addTodo/templates/addTodo.html',
+        controller: 'AddTodoCtrl'
+    });
+}]);
 
 angular.module('app').config(['$stateProvider', function ($stateProvider) {
     $stateProvider.state('editTodo', {
@@ -127,20 +144,31 @@ angular.module('app').config(['$stateProvider', '$urlRouterProvider', function (
     $urlRouterProvider.otherwise('/home');
 }]);
 
-angular.module('app').config(['$stateProvider', function ($stateProvider) {
-    $stateProvider.state('addTodo', {
-        url: '/add-todo',
-        templateUrl: './pages/addTodo/templates/addTodo.html',
-        controller: 'AddTodoCtrl'
-    });
-}]);
+function AddTodoCtrl($scope, $state, TodosService, InputErrorsService) {
+    $scope.newTodo = {
+        assignee: '',
+        todoText: '',
+        duration: ''
+    };
+
+    $scope.shouldShowErrors = InputErrorsService.shouldShowErrors;
+
+    $scope.addTodo = function (todo) {
+        if ($scope.newTodoForm.$valid) {
+            TodosService.addTodo(todo);
+            $state.go('home');
+        };
+    };
+};
+
+angular.module('app').controller('AddTodoCtrl', ['$scope', '$state', 'TodosService', 'InputErrorsService', AddTodoCtrl]);
 
 function EditTodoCtrl($scope, $state, TodosService, InputErrorsService, todo) {
     $scope.todoCopy = Object.assign({}, todo);
     $scope.shouldShowErrors = InputErrorsService.shouldShowErrors;
 
-    $scope.updateCurrentContact = function () {
-        if ($scope.updateContactForm.$valid) {
+    $scope.updateTodo = function () {
+        if ($scope.updateTodoForm.$valid) {
             TodosService.updateTodo($scope.todoCopy);
             $state.go('home');
         };
@@ -165,25 +193,6 @@ function contactsFilter() {
 };
 
 angular.module('app').filter('contactsFilter', contactsFilter);
-
-function AddTodoCtrl($scope, $state, TodosService, InputErrorsService) {
-    $scope.newContact = {
-        name: '',
-        phoneNumber: '',
-        email: ''
-    };
-
-    $scope.shouldShowErrors = InputErrorsService.shouldShowErrors;
-
-    $scope.addTodo = function (todo) {
-        if ($scope.newTodoForm.$valid) {
-            TodosService.addTodo(todo);
-            $state.go('home');
-        };
-    };
-};
-
-angular.module('app').controller('AddTodoCtrl', ['$scope', '$state', 'TodosService', 'InputErrorsService', AddTodoCtrl]);
 
 angular.module('app').directive('todo', ['TodosService', function (TodosService) {
     return {

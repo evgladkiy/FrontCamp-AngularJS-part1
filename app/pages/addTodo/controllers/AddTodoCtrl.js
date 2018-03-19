@@ -1,8 +1,8 @@
 function AddTodoCtrl($scope, $state, TodosService, InputErrorsService) {
-    $scope.newContact = {
-        name: '',
-        phoneNumber: '',
-        email: '',
+    $scope.newTodo = {
+        assignee: '',
+        todoText: '',
+        duration: '',
     };
 
     $scope.shouldShowErrors = InputErrorsService.shouldShowErrors;

@@ -3,19 +3,26 @@ function TodosService($http, $q) {
     let isTodoLoaded = false;
 
     function fetchInitData() {
-        return $http.get('./initData/contacts.json')
-            .then(res => todos = res.data);
+        return $http.get('./initData/todos.json')
+            .then(res => {
+                todos = res.data;
+                return todos
+            });
     }
 
     function getTodos() {
         if (!todos && !isTodoLoaded) {
             return fetchInitData();
         }
-        return $q.defer().resolve(todos);
+        return $q.resolve(todos);
     }
 
     function addTodo(newTodo) {
-        todos.push(newTodo);
+        if (!todos) {
+            getTodos.then(() => todos.unshift(newTodo))
+        } else {
+            todos.unshift(newTodo)
+        }
     }
 
     function removeTodo(todoId) {
@@ -24,16 +31,11 @@ function TodosService($http, $q) {
         todos.splice(todoIndex, 1);
     }
 
-    function updateTodo(updatedContact) {
-        const oldContact = contacts.find((contact) => (
-            contact._id === updatedContact._id
-        ));
-        const contactIndex = contacts.indexOf(oldContact);
+    function updateTodo(updatedTodo) {
+        const todoIndex = todos.findIndex(todo => todo._id === updatedTodo);
 
-        contacts.splice(contactIndex, 1, updatedContact);
+        todos.splice(todoIndex, 1, updatedTodo);
     }
-
-    fetchInitData();
 
     return {
         getTodos,
@@ -44,4 +46,4 @@ function TodosService($http, $q) {
 };
 
 angular.module('app')
-    .factory('TodosService',['$http', TodosService]);
+    .factory('TodosService',['$http', '$q', TodosService]);

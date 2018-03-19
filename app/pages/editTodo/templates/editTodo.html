@@ -2,23 +2,7 @@
     <h2>Update todo page</h2>
     <form class="new-todo-form" name="updateTodoForm" ng-submit="updateTodo(todo)" novalidate>
         <div class="input-container">
-            <label for="assignee-name">Assignee Name</label>
-            <input
-                type="text" name="assigneeName"
-                id="assignee-name" ng-required='true'
-                ng-minlength="2"
-                ng-model="todoCopy.assignee" />
-            <div
-                class="help-block"
-                ng-messages="updateTodoForm.assigneeName.$error"
-                ng-if="shouldShowErrors(updateTodoForm.assigneeName, updateTodoForm.$submitted)"
-            >
-                <p ng-message="minlength">Assignee Name must be at least 2 characters.</p>
-                <p ng-message="required">Assignee Name is required.</p>
-            </div>
-        </div>
-        <div class="input-container">
-            <label for="todo-body">Todo</label>
+            <label for="todo-body" class="label-reqired">Todo</label>
             <textarea
                     id="todo-body"
                     name="todoText"
@@ -33,8 +17,25 @@
                 <p ng-message="required">Todo is required.</p>
             </div>
         </div>
+        <div class="row">
+            <div class="input-container">
+                <label for="assignee-name" class="label-reqired">Assignee Name</label>
+                <input
+                type="text" name="assigneeName"
+                id="assignee-name" ng-required='true'
+                ng-minlength="2"
+                ng-model="todoCopy.assignee" />
+                <div
+                class="help-block"
+                ng-messages="updateTodoForm.assigneeName.$error"
+                ng-if="shouldShowErrors(updateTodoForm.assigneeName, updateTodoForm.$submitted)"
+                >
+                <p ng-message="minlength">Assignee Name must be at least 2 characters.</p>
+                <p ng-message="required">Assignee Name is required.</p>
+            </div>
+        </div>
         <div class="input-container">
-            <label for="duration">Time for implementation(min)</label>
+            <label for="duration" class="label-reqired">Time for implementation (min)</label>
             <input
               type="number" id="duration"
               name="todoDuration"
@@ -45,12 +46,13 @@
             <div
               class="help-block"
               ng-messages="updateTodoForm.todoDuration.$error"
-              ng-if="shouldShowErrors(updateTodoForm.todoDuration, updateTodoForm.$submitted)"
-            >
+              ng-if="shouldShowErrors(updateTodoForm.todoDuration, updateTodoForm.$submitted)">
                 <p ng-message="required">Time for doto's implementation is required.</p>
                 <p ng-message="min">Time for implementation must be greater or equal than 5 minutes</p>
                 <p ng-message="max">Time for implementation must be less than 1000 minutes</p>
             </div>
+        </div>
+
         </div>
         <div class="submit-container">
             <a class="btn btn_link" ui-sref="home">

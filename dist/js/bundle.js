@@ -28,6 +28,14 @@ angular.module('app').directive('highlight', function () {
     };
 });
 
+angular.module('app').config(['$stateProvider', function ($stateProvider) {
+    $stateProvider.state('addTodo', {
+        url: '/add-todo',
+        templateUrl: './pages/addTodo/templates/addTodo.html',
+        controller: 'AddTodoCtrl'
+    });
+}]);
+
 angular.module('app').factory('InputErrorsService', function () {
     return {
         shouldShowErrors: function shouldShowErrors(input, isFormSubmitted) {
@@ -98,14 +106,6 @@ function TodosService($http, $q) {
 };
 
 angular.module('app').factory('TodosService', ['$http', '$q', TodosService]);
-
-angular.module('app').config(['$stateProvider', function ($stateProvider) {
-    $stateProvider.state('addTodo', {
-        url: '/add-todo',
-        templateUrl: './pages/addTodo/templates/addTodo.html',
-        controller: 'AddTodoCtrl'
-    });
-}]);
 
 angular.module('app').config(['$stateProvider', function ($stateProvider) {
     $stateProvider.state('editTodo', {
@@ -179,20 +179,51 @@ angular.module('app').controller('EditTodoCtrl', ['$scope', '$state', 'TodosServ
 
 angular.module('app').controller('HomeCtrl', ['$scope', 'todos', function ($scope, todos) {
     $scope.filterValue = '';
+    $scope.filterCategory = 'todo';
+    $scope.doneFilter = 'all';
     $scope.todos = todos;
 }]);
 
-function contactsFilter() {
-    return function (contacts, filterValue) {
-        var mappedValue = filterValue.trim().toLowerCase();
-        return contacts.filter(function (contact) {
-            var mappedName = contact.name.toLowerCase();
-            return mappedName.indexOf(mappedValue) === 0;
+function dateToPastDaysFilter() {
+    return function (date) {
+        var ms = Date.now() - new Date(date);
+        var daysAmount = Math.floor(ms / (1000 * 60 * 60 * 24));
+
+        return daysAmount > 0 ? daysAmount : 0.5;
+    };
+};
+
+angular.module('app').filter('dateToPastDaysFilter', dateToPastDaysFilter);
+
+function todosFilter($filter) {
+    return function (todos, doneFilter, filterValue, filterCategory) {
+        return todos.filter(function (todo) {
+            switch (doneFilter) {
+                case 'all':
+                    return todo;
+                case 'done':
+                    return todo.isDone;
+                case 'inProgress':
+                    return !todo.isDone;
+                default:
+                    return todo;
+            }
+        }).filter(function (todo) {
+            var mappedValue = filterValue.trim().toLowerCase();
+            var filteredProp = void 0;
+
+            if (filterCategory === 'todo') {
+                filteredProp = todo.todoText.toLowerCase();
+            } else if (filterCategory === 'date') {
+                filteredProp = $filter('date')(todo.creationDate, 'dd.MM');
+            }
+
+            return filteredProp.indexOf(mappedValue) === 0;
         });
     };
 };
 
-angular.module('app').filter('contactsFilter', contactsFilter);
+angular.module('app').filter('todosFilter', ['$filter', todosFilter]);
 
 angular.module('app').directive('todo', ['TodosService', function (TodosService) {
     return {
@@ -200,27 +231,30 @@ angular.module('app').directive('todo', ['TodosService', function (TodosService)
         scope: {
             todo: '='
         },
-        controller: function controller($scope) {
-            $scope.removeTodo = TodosService.removeTodo;
-        },
         templateUrl: './pages/home/directives/todo/todo.html'
     };
+}]);
+
+angular.module('app').controller('TodoCtrl', ['$scope', function ($scope) {
+    // $sope
 }]);
 
 angular.module('app').directive('todoList', [function () {
     return {
         restrict: 'E',
         scope: {
+            doneFilter: '@',
             filterValue: '@',
+            filterCategory: '@',
             todos: '='
         },
         templateUrl: './pages/home/directives/todoList/todoList.html'
     };
 }]);
 
-angular.module('app').directive('todosTollbox', function () {
+angular.module('app').directive('todosToolbox', function () {
     return {
         restrict: 'E',
-        templateUrl: './pages/home/directives/todosTollbox/todosTollbox.html'
+        templateUrl: './pages/home/directives/todosToolbox/todosToolbox.html'
     };
 });

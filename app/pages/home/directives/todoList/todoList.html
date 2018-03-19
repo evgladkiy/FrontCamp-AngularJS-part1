@@ -1,5 +1,6 @@
 <ul>
-    <li bindonce ng-repeat="todo in todos">
+    <!-- <li bindonce ng-repeat="todo in todos |   > -->
+    <li bindonce ng-repeat="todo in todos | todosFilter:doneFilter:filterValue:filterCategory | orderBy: 'creationDate | dateToPastDaysFilter'"  >
         <todo todo="todo"></todo>
     </li>
 </ul>

@@ -4,9 +4,6 @@ angular.module('app')
         scope: {
             todo: '=',
         },
-        controller: ($scope) => {
-            $scope.removeTodo= TodosService.removeTodo;
-        },
         templateUrl: './pages/home/directives/todo/todo.html',
     })
 ]);

@@ -3,7 +3,7 @@
         "_id": "5aaf57b2e4e49b983deaa6af",
         "assignee": "Taylor Ware",
         "todoText": "et dolore magna ut commodo in cillum sint velit consectetur do labore ut velit anim labore ex sit ad irure ea incididunt velit do Lorem occaecat et excepteur et deserunt nisi ipsum ex dolore voluptate velit nostrud esse",
-        "creationDate": "2018-03-16T02:43:53 -03:00",
+        "creationDate": "2018-03-16T02:43:53",
         "isDone": true,
         "duration": 85
     },
@@ -11,7 +11,7 @@
         "_id": "5aaf57b20cbc4efc7a27f7ab",
         "assignee": "Mckee Beard",
         "todoText": "labore reprehenderit non elit eu consequat proident non magna ullamco est aliqua qui incididunt aute aliqua ad aute veniam laboris magna ad dolor et in irure amet nulla cupidatat pariatur ipsum cupidatat do irure tempor sunt ex sit eiusmod",
-        "creationDate": "2018-03-16T11:19:32 -03:00",
+        "creationDate": "2018-03-16T11:19:32",
         "isDone": false,
         "duration": 130
     },
@@ -19,7 +19,7 @@
         "_id": "5aaf57b2a53d38f418de5904",
         "assignee": "Faulkner Leon",
         "todoText": "pariatur fugiat magna reprehenderit fugiat qui consectetur sint irure velit pariatur duis laboris mollit irure nulla irure sunt pariatur ex ex",
-        "creationDate": "2018-03-17T11:01:16 -03:00",
+        "creationDate": "2018-03-17T11:01:16",
         "isDone": false,
         "duration": 120
     },
@@ -27,7 +27,7 @@
         "_id": "5aaf57b243c9f8da154d7d6a",
         "assignee": "Guy Porter",
         "todoText": "commodo tempor nisi fugiat Lorem sint nisi ullamco amet irure ad esse eu exercitation velit laboris elit magna culpa elit veniam nulla cupidatat commodo enim non et proident laboris pariatur et",
-        "creationDate": "2018-03-19T08:53:12 -03:00",
+        "creationDate": "2018-03-19T08:53:12",
         "isDone": false,
         "duration": 70
     },
@@ -35,7 +35,7 @@
         "_id": "5aaf57b2bfa7d38863471f3b",
         "assignee": "Monroe Santos",
         "todoText": "officia nulla ad et commodo reprehenderit ex amet labore sit deserunt nisi nulla esse dolore nostrud consequat ea nostrud deserunt culpa occaecat sunt eu consectetur qui velit veniam proident exercitation tempor ullamco",
-        "creationDate": "2018-03-06T06:05:23 -03:00",
+        "creationDate": "2018-03-06T06:05:23",
         "isDone": false,
         "duration": 140
     },
@@ -43,7 +43,7 @@
         "_id": "5aaf57b27078ec14c83b3170",
         "assignee": "Mathews Weeks",
         "todoText": "dolor occaecat sunt voluptate aliqua nulla proident laborum adipisicing sunt dolor labore elit cupidatat eiusmod sint magna mollit qui ea ipsum elit nulla id nostrud officia commodo ipsum",
-        "creationDate": "2018-03-11T01:56:22 -03:00",
+        "creationDate": "2018-03-11T01:56:22",
         "isDone": true,
         "duration": 150
     },
@@ -51,7 +51,7 @@
         "_id": "5aaf57b2a227a1e495cd3357",
         "assignee": "Melton Sherman",
         "todoText": "anim consectetur sint eiusmod et cillum ea tempor nulla laborum laboris ad enim fugiat ut laborum eu ut mollit elit do id laborum in sunt minim labore minim consectetur id pariatur adipisicing consequat occaecat cillum esse",
-        "creationDate": "2018-03-06T02:25:59 -03:00",
+        "creationDate": "2018-03-06T02:25:59",
         "isDone": true,
         "duration": 40
     },
@@ -59,7 +59,7 @@
         "_id": "5aaf57b24c343dfdd2705691",
         "assignee": "Addie Mclean",
         "todoText": "dolor amet sit occaecat incididunt labore duis sunt id Lorem eiusmod voluptate commodo exercitation sint duis consequat et nisi sint commodo eu in est mollit mollit nisi et Lorem ipsum culpa laborum nisi cillum irure excepteur",
-        "creationDate": "2018-03-17T01:07:03 -03:00",
+        "creationDate": "2018-03-17T01:07:03",
         "isDone": false,
         "duration": 75
     },
@@ -67,7 +67,7 @@
         "_id": "5aaf57b2725782d8dfb48772",
         "assignee": "Bridgett Charles",
         "todoText": "fugiat ea cupidatat nulla nulla irure est veniam consequat esse proident ad exercitation sint laborum dolor voluptate non do dolore laborum dolore laborum",
-        "creationDate": "2018-03-04T04:40:01 -03:00",
+        "creationDate": "2018-03-04T04:40:01",
         "isDone": false,
         "duration": 85
     },
@@ -75,7 +75,7 @@
         "_id": "5aaf57b22fba68888b2a4459",
         "assignee": "Mitzi Rollins",
         "todoText": "ad exercitation sunt exercitation sit eiusmod Lorem aute Lorem enim duis est aliqua qui reprehenderit ea sunt mollit dolore dolor aute consectetur laboris ad ipsum nulla laboris duis enim nostrud aliqua",
-        "creationDate": "2018-03-15T02:58:29 -03:00",
+        "creationDate": "2018-03-15T02:58:29",
         "isDone": false,
         "duration": 135
     },
@@ -83,7 +83,7 @@
         "_id": "5aaf57b2c02c66028cd27fd3",
         "assignee": "Whitley Mueller",
         "todoText": "labore ex pariatur nostrud mollit ex nisi nostrud Lorem fugiat velit esse dolor reprehenderit proident irure eiusmod minim laborum dolor adipisicing cupidatat nostrud magna eu consequat laboris voluptate consequat veniam officia veniam veniam consequat",
-        "creationDate": "2018-03-03T02:22:19 -03:00",
+        "creationDate": "2018-03-03T02:22:19",
         "isDone": false,
         "duration": 80
     },
@@ -91,7 +91,7 @@
         "_id": "5aaf57b20074ae868cc53669",
         "assignee": "Salinas Berry",
         "todoText": "dolore incididunt ea dolor id cupidatat consequat incididunt ea ipsum ad est deserunt velit eiusmod excepteur duis esse culpa tempor non excepteur voluptate cillum commodo non sit esse esse in minim",
-        "creationDate": "2018-03-15T02:47:27 -03:00",
+        "creationDate": "2018-03-15T02:47:27",
         "isDone": false,
         "duration": 75
     },
@@ -99,7 +99,7 @@
         "_id": "5aaf57b296044d7bc5be5aa7",
         "assignee": "Aisha Stout",
         "todoText": "ut dolor duis aute sunt magna ullamco ad proident nostrud elit laboris exercitation eiusmod ipsum ut veniam do sit aliquip proident in dolor non laborum voluptate aute voluptate",
-        "creationDate": "2018-03-08T03:44:05 -03:00",
+        "creationDate": "2018-03-08T03:44:05",
         "isDone": true,
         "duration": 30
     },
@@ -107,7 +107,7 @@
         "_id": "5aaf57b24238b3b9c7cfc8b9",
         "assignee": "Carter Everett",
         "todoText": "eiusmod consequat voluptate quis excepteur in sit est nostrud ut exercitation sunt consectetur Lorem fugiat in tempor dolore amet fugiat voluptate veniam sit occaecat do sunt eiusmod proident nulla cillum cillum exercitation sit voluptate",
-        "creationDate": "2018-03-03T09:36:07 -03:00",
+        "creationDate": "2018-03-03T09:36:07",
         "isDone": false,
         "duration": 135
     },
@@ -115,7 +115,7 @@
         "_id": "5aaf57b21804b558317babc4",
         "assignee": "Dickson Reyes",
         "todoText": "nostrud quis do laborum enim consequat duis nisi commodo veniam ipsum pariatur est deserunt amet cillum amet deserunt et mollit officia tempor duis dolore labore sint officia ex ex duis occaecat voluptate culpa aute nostrud",
-        "creationDate": "2018-03-03T09:33:39 -03:00",
+        "creationDate": "2018-03-03T09:33:39",
         "isDone": true,
         "duration": 85
     },
@@ -123,7 +123,7 @@
         "_id": "5aaf57b231c6723a2cef6083",
         "assignee": "Chang Hendricks",
         "todoText": "amet officia cupidatat non ut deserunt ullamco in ut exercitation pariatur excepteur ea Lorem nisi culpa consectetur incididunt occaecat aliqua dolore qui",
-        "creationDate": "2018-03-13T03:43:08 -03:00",
+        "creationDate": "2018-03-13T03:43:08",
         "isDone": true,
         "duration": 40
     },
@@ -131,7 +131,7 @@
         "_id": "5aaf57b2071476ef04e9cc04",
         "assignee": "Gay Barber",
         "todoText": "do id consequat eu ut reprehenderit sint reprehenderit consequat est do officia consectetur ipsum nostrud id id exercitation sunt qui est do officia incididunt incididunt ex est",
-        "creationDate": "2018-03-13T12:53:35 -03:00",
+        "creationDate": "2018-03-13T12:53:35",
         "isDone": false,
         "duration": 125
     },
@@ -139,7 +139,7 @@
         "_id": "5aaf57b2c262ce76a073cb00",
         "assignee": "Claire Lester",
         "todoText": "minim dolor quis pariatur ipsum elit occaecat mollit voluptate ut cupidatat est sint incididunt eu irure mollit velit non cupidatat aliqua deserunt nisi labore est nulla eiusmod non aliqua proident et nisi velit occaecat deserunt dolor Lorem",
-        "creationDate": "2018-03-16T01:21:13 -03:00",
+        "creationDate": "2018-03-16T01:21:13",
         "isDone": false,
         "duration": 135
     },
@@ -147,7 +147,7 @@
         "_id": "5aaf57b246bf0dc22a4b468d",
         "assignee": "Rosemary Baxter",
         "todoText": "voluptate anim est ullamco consectetur dolor amet ad cupidatat anim tempor eu adipisicing mollit veniam labore mollit reprehenderit consectetur tempor culpa ipsum ut voluptate labore proident deserunt nostrud laborum anim sit qui nostrud commodo reprehenderit elit mollit",
-        "creationDate": "2018-03-17T03:50:26 -03:00",
+        "creationDate": "2018-03-17T03:50:26",
         "isDone": false,
         "duration": 105
     },
@@ -155,7 +155,7 @@
         "_id": "5aaf57b265c1ffa000cb7f90",
         "assignee": "Campos Moreno",
         "todoText": "laborum minim velit sint eiusmod velit sint enim consectetur do quis anim mollit duis reprehenderit duis pariatur sunt amet deserunt commodo id sint reprehenderit nostrud officia tempor ullamco ex anim eu tempor id",
-        "creationDate": "2018-03-05T11:10:54 -03:00",
+        "creationDate": "2018-03-05T11:10:54",
         "isDone": false,
         "duration": 90
     }

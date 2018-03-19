@@ -1,10 +1,12 @@
 <div class="medium-container">
     <h2>Home page</h2>
-    <todos-tollbox></todos-tollbox>
+    <todos-toolbox></todos-toolbox>
     <h3>Todos list</h3>
     <todo-list
-        filter-value="{{filterValue}}"
         todos="todos"
+        filter-value="{{filterValue}}"
+        done-filter="{{doneFilter}}"
+        filter-category="{{filterCategory}}"
     >
     </todo-list>
 </div>

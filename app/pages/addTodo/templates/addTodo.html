@@ -3,9 +3,9 @@
     <form name="newTodoForm" class="new-contact-form" ng-submit="addTodo(newTodo)" novalidate>
         <div class="input-container">
             <label for="todo-body" class="label-reqired">Todo</label>
-            <textarea id="todo-body" name="todoText" ng-model="newTodo.todoText" ng-required="true" ng-minlength="20"></textarea>
+            <textarea id="todo-body" name="todoText" ng-model="newTodo.todoText" ng-required="true" custom-validator="20"></textarea>
             <div class="help-block" ng-messages="newTodoForm.todoText.$error" ng-if="shouldShowErrors(newTodoForm.todoText, newTodoForm.$submitted)">
-                <p ng-message="minlength">Todo must be at least 20 characters.</p>
+                <p ng-message="customValidator">Todo must be at least 20 characters.</p>
                 <p ng-message="required">Todo is required.</p>
             </div>
         </div>

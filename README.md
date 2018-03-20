@@ -11,7 +11,7 @@ Task 1
 
 1)	Add AngularJS 1.#.# to a project
 2)	Add minimum functionality:
-        -  Add status(is it done or not) and date creation to todo model;
+        - Add status(is it done or not) and date creation to todo model;
         - Create a view displaying two lists of  todos: “Done todos” and “New todos”;
         - Add filtering for todo list on base how old is the todo in days;
 3)	Add more functionality: 

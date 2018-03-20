@@ -28,9 +28,9 @@ function TodosService($http, $q) {
         });
 
         if (!todos) {
-            getTodos.then(() => todos.unshift(todo))
+            getTodos.then(() => todos.unshift(todo));
         } else {
-            todos.unshift(todo)
+            todos.unshift(todo);
         }
     }
 

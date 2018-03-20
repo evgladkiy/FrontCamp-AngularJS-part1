@@ -367,9 +367,7 @@ todo {
 .todo-info-container {
     font-size: 1.6rem;
     line-height: 2.2rem;
-    -webkit-box-flex: 1;
-    -ms-flex-positive: 1;
-    flex-grow: 1;
+    width: calc(100% - 80px);
 }
 
 ul li {
@@ -392,6 +390,12 @@ ul li {
     justify-content: space-between;
 }
 
+.todo-footer span {
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+}
+
 .todo-btns__container {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -401,7 +405,7 @@ ul li {
     align-items: flex-end;
     padding-left: 20px;
     line-height: 19px;
-    width: 90px;
+    width: 85px;
     font-size: 0;
 }
 

@@ -359,7 +359,7 @@ todo {
 .todo-info-container {
     font-size: 1.6rem;
     line-height: 2.2rem;
-    flex-grow: 1;
+    width: calc(100% - 80px);
 }
 
 ul li {
@@ -378,12 +378,16 @@ ul li {
     justify-content: space-between;
 }
 
+.todo-footer span {
+    flex-grow: 1;
+}
+
 .todo-btns__container {
     display: flex;
     align-items: flex-end;
     padding-left: 20px;
     line-height: 19px;
-    width: 90px;
+    width: 85px;
     font-size: 0;
 }
 

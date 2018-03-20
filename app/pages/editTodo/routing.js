@@ -14,7 +14,7 @@ angular.module('app')
             onEnter($state, todo) {
                 if (todo === undefined) {
                     $state.go('home');
-                };
+                }
             },
         });
     }]);

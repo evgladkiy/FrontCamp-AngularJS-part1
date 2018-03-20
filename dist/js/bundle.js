@@ -1,40 +1,6 @@
 'use strict';
 
-angular.module('app', ['pasvaz.bindonce', 'ui.router', 'ngMessages']);
-
-angular.module('app').directive('highlight', function () {
-    return {
-        restrict: 'A',
-        link: function link(scope, el, _ref) {
-            var word = _ref.highlight;
-
-            if (String(word) !== '') {
-                switch (word.toLowerCase()[0]) {
-                    case 'a':
-                        {
-                            el.addClass('highlight_red');
-                            break;
-                        }
-                    case 'b':
-                        {
-                            el.addClass('highlight_blue');
-                            break;
-                        }
-                    default:
-                        return;
-                };
-            }
-        }
-    };
-});
-
-angular.module('app').config(['$stateProvider', function ($stateProvider) {
-    $stateProvider.state('addTodo', {
-        url: '/add-todo',
-        templateUrl: './pages/addTodo/templates/addTodo.html',
-        controller: 'AddTodoCtrl'
-    });
-}]);
+angular.module('app', ['ui.router', 'ngMessages']);
 
 angular.module('app').factory('InputErrorsService', function () {
     return {
@@ -108,6 +74,14 @@ function TodosService($http, $q) {
 angular.module('app').factory('TodosService', ['$http', '$q', TodosService]);
 
 angular.module('app').config(['$stateProvider', function ($stateProvider) {
+    $stateProvider.state('addTodo', {
+        url: '/add-todo',
+        templateUrl: './pages/addTodo/templates/addTodo.html',
+        controller: 'AddTodoCtrl'
+    });
+}]);
+
+angular.module('app').config(['$stateProvider', function ($stateProvider) {
     $stateProvider.state('editTodo', {
         url: '/edit-todo/:id',
         templateUrl: './pages/editTodo/templates/editTodo.html',
@@ -115,8 +89,8 @@ angular.module('app').config(['$stateProvider', function ($stateProvider) {
         resolve: {
             todo: function todo($stateParams, TodosService) {
                 return TodosService.getTodos().then(function (todos) {
-                    return todos.find(function (_ref2) {
-                        var _id = _ref2._id;
+                    return todos.find(function (_ref) {
+                        var _id = _ref._id;
                         return _id === $stateParams.id;
                     });
                 });
@@ -125,7 +99,7 @@ angular.module('app').config(['$stateProvider', function ($stateProvider) {
         onEnter: function onEnter($state, todo) {
             if (todo === undefined) {
                 $state.go('home');
-            };
+            }
         }
     });
 }]);
@@ -178,29 +152,30 @@ function EditTodoCtrl($scope, $state, TodosService, InputErrorsService, todo) {
 angular.module('app').controller('EditTodoCtrl', ['$scope', '$state', 'TodosService', 'InputErrorsService', 'todo', EditTodoCtrl]);
 
 angular.module('app').controller('HomeCtrl', ['$scope', 'todos', function ($scope, todos) {
-    $scope.filterValue = '';
-    $scope.filterCategory = 'todo';
-    $scope.doneFilter = 'all';
     $scope.todos = todos;
 }]);
 
-function dateToPastDaysFilter() {
+angular.module('app').filter('capitalize', function () {
+    return function (text) {
+        return text.charAt(0).toUpperCase() + text.slice(1);
+    };
+});
+
+angular.module('app').filter('dateToPastDaysFilter', function () {
     return function (date) {
         var ms = Date.now() - new Date(date);
         var daysAmount = Math.floor(ms / (1000 * 60 * 60 * 24));
 
         return daysAmount > 0 ? daysAmount : 0.5;
     };
-};
+});
 
-angular.module('app').filter('dateToPastDaysFilter', dateToPastDaysFilter);
-
-function todosFilter($filter) {
-    return function (todos, doneFilter, filterValue, filterCategory) {
+function todosFilter($filter, TodosToolboxService) {
+    return function (todos) {
         return todos.filter(function (todo) {
+            var doneFilter = TodosToolboxService.getDoneFilter();
+
             switch (doneFilter) {
-                case 'all':
-                    return todo;
                 case 'done':
                     return todo.isDone;
                 case 'inProgress':
@@ -209,43 +184,76 @@ function todosFilter($filter) {
                     return todo;
             }
         }).filter(function (todo) {
-            var mappedValue = filterValue.trim().toLowerCase();
+            var filterValue = TodosToolboxService.getFilterValue();
+            var categoryFilter = TodosToolboxService.getCategoryFilter();
             var filteredProp = void 0;
 
-            if (filterCategory === 'todo') {
+            if (categoryFilter === 'todo') {
                 filteredProp = todo.todoText.toLowerCase();
-            } else if (filterCategory === 'date') {
+            } else if (categoryFilter === 'date') {
                 filteredProp = $filter('date')(todo.creationDate, 'dd.MM');
             }
 
-            return filteredProp.indexOf(mappedValue) === 0;
+            return filteredProp.indexOf(filterValue) === 0;
         });
     };
-};
+}
 
-angular.module('app').filter('todosFilter', ['$filter', todosFilter]);
+angular.module('app').filter('todosFilter', ['$filter', 'TodosToolboxService', todosFilter]);
 
-angular.module('app').directive('todo', ['TodosService', function (TodosService) {
+function TodosToolboxService() {
+
+    // default inputs value
+
+    var filterValue = '';
+    var categoryFilter = 'todo';
+    var doneFilter = 'all';
+
+    return {
+        getFilterValue: function getFilterValue() {
+            return filterValue.trim().toLowerCase();
+        },
+        setFilterValue: function setFilterValue(value) {
+            filterValue = value;
+        },
+        getCategoryFilter: function getCategoryFilter() {
+            return categoryFilter;
+        },
+        setCategoryFilter: function setCategoryFilter(filter) {
+            categoryFilter = filter;
+        },
+        getDoneFilter: function getDoneFilter() {
+            return doneFilter;
+        },
+        setDoneFilter: function setDoneFilter(filter) {
+            doneFilter = filter;
+        }
+    };
+}
+
+angular.module('app').factory('TodosToolboxService', TodosToolboxService);
+
+angular.module('app').directive('todo', [function () {
     return {
         restrict: 'E',
         scope: {
             todo: '='
         },
-        templateUrl: './pages/home/directives/todo/todo.html'
+        templateUrl: './pages/home/directives/todo/todo.html',
+        controller: 'TodoCtrl'
     };
 }]);
 
-angular.module('app').controller('TodoCtrl', ['$scope', function ($scope) {
-    // $sope
+angular.module('app').controller('TodoCtrl', ['$scope', 'TodosService', function ($scope, TodosService) {
+    $scope.removeTodo = function (id) {
+        return TodosService.removeTodo(id);
+    };
 }]);
 
 angular.module('app').directive('todoList', [function () {
     return {
         restrict: 'E',
         scope: {
-            doneFilter: '@',
-            filterValue: '@',
-            filterCategory: '@',
             todos: '='
         },
         templateUrl: './pages/home/directives/todoList/todoList.html'
@@ -255,6 +263,22 @@ angular.module('app').directive('todoList', [function () {
 angular.module('app').directive('todosToolbox', function () {
     return {
         restrict: 'E',
-        templateUrl: './pages/home/directives/todosToolbox/todosToolbox.html'
+        templateUrl: './pages/home/directives/todosToolbox/todosToolbox.html',
+        controller: 'TodosToolboxCtrl'
     };
 });
+
+angular.module('app').controller('TodosToolboxCtrl', ['$scope', 'TodosToolboxService', function ($scope, TodosToolboxService) {
+    $scope.filterValue = TodosToolboxService.getFilterValue();
+    $scope.categoryFilter = TodosToolboxService.getCategoryFilter();
+    $scope.doneFilter = TodosToolboxService.getDoneFilter();
+    $scope.updateFilterValue = function () {
+        return TodosToolboxService.setFilterValue($scope.filterValue);
+    };
+    $scope.updateCategoryFilter = function () {
+        return TodosToolboxService.setCategoryFilter($scope.categoryFilter);
+    };
+    $scope.updateDoneFilter = function () {
+        return TodosToolboxService.setDoneFilter($scope.doneFilter);
+    };
+}]);

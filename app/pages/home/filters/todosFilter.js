@@ -1,30 +1,28 @@
-function todosFilter($filter) {
-    return ((todos, doneFilter, filterValue, filterCategory) => {
+function todosFilter($filter, TodosToolboxService) {
+    return ((todos) => {
         return todos.filter((todo) => {
+            const doneFilter = TodosToolboxService.getDoneFilter();
+
             switch(doneFilter) {
-                case 'all':
-                    return todo;
-                case 'done':
-                    return todo.isDone;
-                case 'inProgress':
-                    return !todo.isDone;
-                default:
-                    return todo;
+                case 'done': return todo.isDone;
+                case 'inProgress': return !todo.isDone;
+                default: return todo;
             }
         }).filter((todo) => {
-            const mappedValue = filterValue.trim().toLowerCase();
+            const filterValue = TodosToolboxService.getFilterValue();
+            const categoryFilter = TodosToolboxService.getCategoryFilter();
             let filteredProp;
 
-            if (filterCategory === 'todo') {
+            if (categoryFilter === 'todo') {
                 filteredProp = todo.todoText.toLowerCase();
-            } else if (filterCategory === 'date') {
+            } else if (categoryFilter === 'date') {
                 filteredProp = $filter('date')(todo.creationDate, 'dd.MM');
             }
 
-            return filteredProp.indexOf(mappedValue) === 0;
+            return filteredProp.indexOf(filterValue) === 0;
         })
     });
-};
+}
 
 angular.module('app')
-    .filter('todosFilter',['$filter', todosFilter]);
+    .filter('todosFilter', ['$filter', 'TodosToolboxService', todosFilter]);

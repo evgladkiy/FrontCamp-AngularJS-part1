@@ -1,2 +1,2 @@
-angular.module('app', ['pasvaz.bindonce', 'ui.router', 'ngMessages']);
+angular.module('app', ['ui.router', 'ngMessages']);
 

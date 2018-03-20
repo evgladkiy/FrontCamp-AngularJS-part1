@@ -1,19 +1,17 @@
-<div class="todo-info-container">
-    <p class="todo-text">{{::todo.todoText}}</p>
+<div ng-class="{'done': {{todo.isDone}}, 'todo-info-container': true}">
+    <p class="todo-text">{{::todo.todoText | capitalize}}</p>
     <div class="todo-footer">
         <span class="todo-info todo-assignee">Asignee: {{::todo.assignee}}</span>
         <span>Creation date: {{::todo.creationDate | date:'dd.MM'}}</span>
         <span class="todo-info todo-days">Days in List: {{::todo.creationDate | dateToPastDaysFilter}}</span>
         <span class="todo-info todo-duration">Duration: {{::todo.duration}} minutes</span>
-
     </div>
 </div>
 
 <div class="todo-btns__container">
     <div class="todo-done-container">
-        <input type="checkbox" id="todo-done-{{::todo._id}}" ng-model="todo.isDone"/>
+        <input type="checkbox" id="todo-done-{{::todo._id}}" ng-model="todo.isDone" />
         <label for="todo-done-{{::todo._id}}"></label>
-
     </div>
     <div class="todo-toolbox__container">
         <a ui-sref="editTodo({ id: todo._id })">
@@ -23,5 +21,4 @@
            <i class="fa fa-trash-o" aria-hidden="true"></i>
         </button>
     </div>
-
 </div>

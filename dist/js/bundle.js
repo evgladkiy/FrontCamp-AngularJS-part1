@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app', ['ui.router', 'ngMessages']);
+var app = angular.module('app', ['ui.router', 'ngMessages', 'ngResource']);
 
 angular.module('app').factory('InputErrorsService', function () {
     return {
@@ -10,20 +10,25 @@ angular.module('app').factory('InputErrorsService', function () {
     };
 });
 
-function TodosService($http, $q) {
+angular.module('app').factory('ResourceService', ['$resource', function ($resource) {
+    return $resource('http://localhost:3000/todos', {}, {
+        'getTodos': {
+            method: 'GET',
+            isArray: true
+        }
+    });
+}]);
+
+function TodosService($q, ResourceService) {
     var todos = null;
     var isTodoLoaded = false;
 
-    function fetchInitData() {
-        return $http.get('./initData/todos.json').then(function (res) {
-            todos = res.data;
-            return todos;
-        });
-    }
-
     function getTodos() {
         if (!todos && !isTodoLoaded) {
-            return fetchInitData();
+            return ResourceService.getTodos().$promise.then(function (resTodos) {
+                isTodoLoaded = true;
+                return todos = resTodos;
+            });
         }
         return $q.resolve(todos);
     }
@@ -69,17 +74,9 @@ function TodosService($http, $q) {
         removeTodo: removeTodo,
         updateTodo: updateTodo
     };
-};
+}
 
-angular.module('app').factory('TodosService', ['$http', '$q', TodosService]);
-
-angular.module('app').config(['$stateProvider', function ($stateProvider) {
-    $stateProvider.state('addTodo', {
-        url: '/add-todo',
-        templateUrl: './pages/addTodo/templates/addTodo.html',
-        controller: 'AddTodoCtrl'
-    });
-}]);
+angular.module('app').factory('TodosService', ['$q', 'ResourceService', TodosService]);
 
 angular.module('app').config(['$stateProvider', function ($stateProvider) {
     $stateProvider.state('editTodo', {
@@ -118,24 +115,13 @@ angular.module('app').config(['$stateProvider', '$urlRouterProvider', function (
     $urlRouterProvider.otherwise('/home');
 }]);
 
-function AddTodoCtrl($scope, $state, TodosService, InputErrorsService) {
-    $scope.newTodo = {
-        assignee: '',
-        todoText: '',
-        duration: ''
-    };
-
-    $scope.shouldShowErrors = InputErrorsService.shouldShowErrors;
-
-    $scope.addTodo = function (todo) {
-        if ($scope.newTodoForm.$valid) {
-            TodosService.addTodo(todo);
-            $state.go('home');
-        };
-    };
-};
-
-angular.module('app').controller('AddTodoCtrl', ['$scope', '$state', 'TodosService', 'InputErrorsService', AddTodoCtrl]);
+angular.module('app').config(['$stateProvider', function ($stateProvider) {
+    $stateProvider.state('addTodo', {
+        url: '/add-todo',
+        templateUrl: './pages/addTodo/templates/addTodo.html',
+        controller: 'AddTodoCtrl'
+    });
+}]);
 
 function EditTodoCtrl($scope, $state, TodosService, InputErrorsService, todo) {
     $scope.todoCopy = Object.assign({}, todo);
@@ -233,6 +219,25 @@ function TodosToolboxService() {
 
 angular.module('app').factory('TodosToolboxService', TodosToolboxService);
 
+function AddTodoCtrl($scope, $state, TodosService, InputErrorsService) {
+    $scope.newTodo = {
+        assignee: '',
+        todoText: '',
+        duration: ''
+    };
+
+    $scope.shouldShowErrors = InputErrorsService.shouldShowErrors;
+
+    $scope.addTodo = function (todo) {
+        if ($scope.newTodoForm.$valid) {
+            TodosService.addTodo(todo);
+            $state.go('home');
+        };
+    };
+};
+
+angular.module('app').controller('AddTodoCtrl', ['$scope', '$state', 'TodosService', 'InputErrorsService', AddTodoCtrl]);
+
 angular.module('app').directive('todo', [function () {
     return {
         restrict: 'E',
@@ -247,16 +252,6 @@ angular.module('app').directive('todo', [function () {
 angular.module('app').controller('TodoCtrl', ['$scope', 'TodosService', function ($scope, TodosService) {
     $scope.removeTodo = function (id) {
         return TodosService.removeTodo(id);
-    };
-}]);
-
-angular.module('app').directive('todoList', [function () {
-    return {
-        restrict: 'E',
-        scope: {
-            todos: '='
-        },
-        templateUrl: './pages/home/directives/todoList/todoList.html'
     };
 }]);
 
@@ -280,5 +275,15 @@ angular.module('app').controller('TodosToolboxCtrl', ['$scope', 'TodosToolboxSer
     };
     $scope.updateDoneFilter = function () {
         return TodosToolboxService.setDoneFilter($scope.doneFilter);
+    };
+}]);
+
+angular.module('app').directive('todoList', [function () {
+    return {
+        restrict: 'E',
+        scope: {
+            todos: '='
+        },
+        templateUrl: './pages/home/directives/todoList/todoList.html'
     };
 }]);

@@ -1,18 +1,13 @@
-function TodosService($http, $q) {
+function TodosService($q, ResourceService) {
     let todos = null;
     let isTodoLoaded = false;
 
-    function fetchInitData() {
-        return $http.get('./initData/todos.json')
-            .then(res => {
-                todos = res.data;
-                return todos;
-            });
-    }
-
     function getTodos() {
         if (!todos && !isTodoLoaded) {
-            return fetchInitData();
+            return ResourceService.getTodos().$promise.then((resTodos) => {
+                isTodoLoaded = true;
+                return todos = resTodos;
+            })
         }
         return $q.resolve(todos);
     }
@@ -52,7 +47,7 @@ function TodosService($http, $q) {
         removeTodo,
         updateTodo,
     };
-};
+}
 
 angular.module('app')
-    .factory('TodosService',['$http', '$q', TodosService]);
+    .factory('TodosService',['$q', 'ResourceService', TodosService]);

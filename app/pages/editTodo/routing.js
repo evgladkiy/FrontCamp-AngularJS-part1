@@ -2,14 +2,13 @@ angular.module('app')
     .config(['$stateProvider', ($stateProvider) => {
         $stateProvider.state('editTodo', {
             url: '/edit-todo/:id',
-            templateUrl: './pages/editTodo/templates/editTodo.html',
-            controller: 'EditTodoCtrl',
+            component: 'editTodoPage',
             resolve: {
-                todo: ($stateParams, TodosService) => (
-                     TodosService.getTodos().then((todos) => (
+                todo: function($stateParams, TodosService) {
+                     return TodosService.getTodos().then((todos) => (
                         todos.find(({ _id }) => _id === $stateParams.id)
-                    ))
-                )
+                     ))
+                },
             },
             onEnter($state, todo) {
                 if (todo === undefined) {

@@ -6,7 +6,8 @@ function TodosService($q, ResourceService) {
         if (!todos && !isTodoLoaded) {
             return ResourceService.getTodos().$promise.then((resTodos) => {
                 isTodoLoaded = true;
-                return todos = resTodos;
+                todos = resTodos;
+                return todos;
             })
         }
         return $q.resolve(todos);
@@ -23,7 +24,9 @@ function TodosService($q, ResourceService) {
         });
 
         if (!todos) {
-            getTodos.then(() => todos.unshift(todo));
+            getTodos().then(() => {
+                todos.unshift(todo);
+            });
         } else {
             todos.unshift(todo);
         }

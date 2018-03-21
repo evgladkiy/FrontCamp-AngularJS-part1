@@ -4,9 +4,9 @@ angular.module('app')
             require: 'ngModel',
             link: function (scope, element, attributes, control) {
 
-                control.$validators.customValidator = function (modelValue) {
-                    return control.$isEmpty(modelValue) || modelValue.length >= 20;
-                };
+                control.$validators.customValidator = (modelValue) => (
+                    control.$isEmpty(modelValue) || modelValue.length >= Number(attributes.customValidator)
+                );
             }
         };
 });

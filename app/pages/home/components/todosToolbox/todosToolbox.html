@@ -1,0 +1,26 @@
+<div class="search-wrapper">
+    <div class="search-container">
+        <i class="fa fa-search" aria-hidden="true"></i>
+        <input type="search" placeholder="Filter by {{$ctrl.categoryFilter}}" ng-model="$ctrl.filterValue" ng-change="$ctrl.updateFilterValue()" />
+    </div>
+    <a class="btn btn_link" ui-sref="addTodo">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        <span>Add todo</span>
+    </a>
+</div>
+<div class="toolbox-btn-container">
+    <div class="radios-container">
+        <input id="radio-all" class="radio" type="radio" name="done-filter" value="all" ng-model="$ctrl.doneFilter" ng-change="$ctrl.updateDoneFilter()" />
+        <label for="radio-all">All</label>
+        <input id="radio-progress" class="radio" type="radio" name="done-filter" value="inProgress" ng-model="$ctrl.doneFilter" ng-change="$ctrl.updateDoneFilter()" />
+        <label for="radio-progress">In progress</label>
+        <input id="radio-done" class="radio" type="radio" name="done-filter" value="done" ng-model="$ctrl.doneFilter" ng-change="$ctrl.updateDoneFilter()" />
+        <label for="radio-done">Done</label>
+    </div>
+    <div class="toggle-container">
+        <input id="toggle-btn-todo" class="toggle-btn toggle-btn-todo" name="filter-category" value="todo" type="radio" ng-model="$ctrl.categoryFilter" ng-change="$ctrl.updateCategoryFilter()" />
+        <label for="toggle-btn-todo">by todo</label>
+        <input id="toggle-btn-date" class="toggle-btn toggle-btn-date" name="filter-category" value="date" type="radio" ng-model="$ctrl.categoryFilter" ng-change="$ctrl.updateCategoryFilter()" />
+        <label for="toggle-btn-date">by date</label>
+    </div>
+</div>

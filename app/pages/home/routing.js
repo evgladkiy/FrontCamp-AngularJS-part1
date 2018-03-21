@@ -3,12 +3,6 @@ angular.module('app')
         $stateProvider.state('home', {
             url: '/home',
             templateUrl: './pages/home/templates/home.html',
-            controller: 'HomeCtrl',
-            resolve: {
-                todos: function(TodosService) {
-                    return TodosService.getTodos();
-                },
-            },
         });
         $urlRouterProvider.otherwise('/home');
     }]);

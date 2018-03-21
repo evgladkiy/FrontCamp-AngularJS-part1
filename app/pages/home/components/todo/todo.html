@@ -1,0 +1,24 @@
+<div class="todo-info-container">
+    <p class="todo-text">{{::$ctrl.todo.todoText | capitalize}}</p>
+    <div class="todo-footer">
+        <span class="todo-info todo-assignee">Asignee: {{::$ctrl.todo.assignee}}</span>
+        <span>Creation date: {{::$ctrl.todo.creationDate | date:'dd.MM'}}</span>
+        <span class="todo-info todo-days">Days in List: {{::$ctrl.todo.creationDate | dateToPastDaysFilter}}</span>
+        <span class="todo-info todo-duration">Duration: {{::$ctrl.todo.duration}} minutes</span>
+    </div>
+</div>
+
+<div class="todo-btns__container">
+    <div class="todo-done-container">
+        <input type="checkbox" id="todo-done-{{::$ctrl.todo._id}}" ng-model="$ctrl.todo.isDone" />
+        <label for="todo-done-{{::$ctrl.todo._id}}"></label>
+    </div>
+    <div class="todo-toolbox__container">
+        <a ui-sref="editTodo({ id: $ctrl.todo._id })">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+        </a>
+        <button ng-click="$ctrl.removeTodo($ctrl.todo._id)">
+           <i class="fa fa-trash-o" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>
